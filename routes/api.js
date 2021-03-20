@@ -15,7 +15,7 @@ router.get('/categories', async function(req, res, next) {
 
 router.post('/categories/:categoryId/questions', async function(req, res, next) {
     let body = req.body;
-    body.categoryID = req.params.categoryId;
+    body.categoryId = req.params.categoryId;
     let question = await Question.create(body); 
     res.json(question);
 });
@@ -27,7 +27,7 @@ router.get('/categories/:categoryId/questions', async function(req, res, next) {
 
 router.post('/categories/:categoryId/questions/:questionId/answers', async function(req, res, next) {
     let body = req.body;
-    body.questionID = req.params.questionId;
+    body.questionId = req.params.questionId;
     let answer = await Answer.create(body); 
     res.json(answer);
 });

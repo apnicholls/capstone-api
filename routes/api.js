@@ -7,6 +7,8 @@ const {Category, Question, Answer} = require('../lib/models');
 // POST /api/v1/categories/:categoryId/questions
 // POST /api/v1/categories/:categoryId/questions/:questionId/answers
 // GET /api/v1/categories/:categoryId/questions/:questionId/answers
+// GET /questions/:questionId/answers
+
 
 router.get('/categories', async function(req, res, next) {
     let categories = await Category.findAll({});
@@ -34,7 +36,19 @@ router.post('/categories/:categoryId/questions/:questionId/answers', async funct
 
 router.get('/categories/:categoryId/questions/:questionId/answers', async function(req, res, next) {
     let answers = await Answer.findAll( {where: {questionId: req.params.questionId}});
-    res.json(answer);
+    res.json(answers);
+});
+
+router.post('/questions/:questionId/answers', async function(req, res, next) {
+    let body = req.body;
+    body.questionId = req.params.questionId;
+    let answers = await Answer.create(body);
+    res.json(answers);
+});
+
+router.get('/questions/:questionId/answers', async function(req, res, next) {
+    let answers = await Answer.findAll( {where: {questionId: req.params.questionId}});
+    res.json(answers);
 });
 
 

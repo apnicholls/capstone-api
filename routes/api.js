@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {Category, Question, Answer} = require('../lib/models');
+const {Category, Question, Answer, User} = require('../lib/models');
 
 // GET /api/v1/categories
 // GET /api/v1/categories/:categoryId/questions
@@ -8,6 +8,29 @@ const {Category, Question, Answer} = require('../lib/models');
 // POST /api/v1/categories/:categoryId/questions/:questionId/answers
 // GET /api/v1/categories/:categoryId/questions/:questionId/answers
 // GET /questions/:questionId/answers
+
+router.get('/profile',(req, res, next) => {
+        console.log('req.user is', req.user);
+        // write code like find the user where the email id is this
+        res.json({
+            message: 'You made it to the secure route',
+            user: req.user,
+            token: req.query.secret_token
+        })
+    }
+);
+
+router.get('/users/me', async (req, res, next) => {
+    console.log('req.user is', req.user);
+    // write code like find the user where the email id is this
+    let u = await User.findOne({where: {email: req.user.email}});
+    res.json({
+        message: 'You made it to the secure route',
+        user: u,
+        token: req.query.token
+    })
+}
+);
 
 
 router.get('/categories', async function(req, res, next) {

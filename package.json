@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "deploy": "git add . && git commit -m 'checking in' && git push heroku master"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
